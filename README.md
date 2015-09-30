@@ -1,1 +1,6 @@
-# Wages Table
+# Install and run
+
+```
+npm install
+gulp watch
+```

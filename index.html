@@ -8,50 +8,48 @@
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Demo table</h1>
-    <div id="js-wages-table-placeholder"></div>
+
+    <main class="container">
+
+        <div id="js-wages-table-placeholder"></div>
+    </main>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>
 
     <script id="js-tmpl-table-rows" type="text/x-handlebars-template">
-        <button data-filter-min="0.5">Filter by minimum</button>
-        <button data-filter-higher-wage="female">Higher female wages</button>
-        <button data-filter-higher-wage="male">Higher male wages</button>
-        <button data-reset>Reset</button>
-        <p>Rows: {{ rows.length }}</p>
-        <p>Pages: {{ pages }}</p>
-        <p>Page: {{ page }}</p>
-        <table class="table table-striped">
+        <div class="well clearfix">
+            <button class="btn btn-primary btn-sm" data-filter-min="0.5">Filter by minimum</button>
+            <button class="btn btn-info btn-sm" data-filter-higher-wage="female">Higher female wages</button>
+            <button class="btn btn-info btn-sm" data-filter-higher-wage="male">Higher male wages</button>
+            <button class="btn btn-default btn-sm" data-reset>Reset</button>
+        </div>
+        <table class="table table-bordered table-striped table-hover">
+            <caption>Table of stuffs</caption>
             <thead>
                 <tr>
-                    <th>
-                        <button data-sort="jobtitle">Job Title</button>
-                    </th>
-                    <th>
-                        <button data-sort="female_avg_hrly_rate">Female Avg Hourly Rate</button>
-                    </th>
-                    <th>
-                        <button data-sort="male_avg_hrly_rate">Male Avg Hourly Rate</button>
-                    </th>
+                    <th class="column-sort" data-sort="jobtitle">Job Title</th>
+                    <th class="column-sort" data-sort="female_avg_hrly_rate">Female Avg Hourly Rate</th>
+                    <th class="column-sort" data-sort="male_avg_hrly_rate">Male Avg Hourly Rate</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each rows}}
                 <tr>
-                    <td>{{ jobtitle }}</td>
+                    <th scope="row">{{ jobtitle }}</th>
                     <td>{{ female_avg_hrly_rate }}</td>
                     <td>{{ male_avg_hrly_rate }}</td>
                 </tr>
                 {{/each}}
             </tbody>
         </table>
-        <ol>
+        <ul class="pagination">
         {{#each pagination}}
             <li>
                 <a href="#" data-offset={{ offset }}>{{ page }}</a>
             </li>
         {{/each}}
-        </ol>
+        </ul>
     </script>
 
     <script src="js/view.js"></script>

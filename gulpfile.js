@@ -10,7 +10,7 @@ var autoprefixer = require( 'gulp-autoprefixer' );
 gulp.task( 'styles', function () {
     gulp.src( 'sass/styles.scss' )
     .pipe( sass( {
-        includePaths: [ 'node_modules' ]
+        includePaths: [ 'node_modules/bootstrap-sass/assets/stylesheets' ]
     })
     .on( 'error', sass.logError ))
     .pipe( autoprefixer() )
@@ -28,7 +28,7 @@ gulp.task( 'serve', function() {
 
 
 // Watch for changes
-gulp.task( 'watch', [ 'scripts', 'styles', 'serve' ], function () {
+gulp.task( 'watch', [ 'styles', 'serve' ], function () {
     gulp.watch( 'sass/**/*.scss', [ 'styles' ]);
 });
 

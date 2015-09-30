@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wages table</title>
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Demo table</h1>
+    <button data-filter-min="0.5">Filter by minimum</button>
+    <button data-reset>Reset</button>
+    <div id="js-wages-table-placeholder"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>
+
+    <script id="js-tmpl-table-rows" type="text/x-handlebars-template">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <button data-sort="jobtitle">Job Title</button>
+                    </th>
+                    <th>
+                        <button data-sort="female_avg_hrly_rate">Female Avg Hourly Rate</button>
+                    </th>
+                    <th>
+                        <button data-sort="male_avg_hrly_rate">Male Avg Hourly Rate</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each rows}}
+                <tr>
+                    <td>{{ jobtitle }}</td>
+                    <td>{{ female_avg_hrly_rate }}</td>
+                    <td>{{ male_avg_hrly_rate }}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>        
+    </script>
+
+    <script src="js/view.js"></script>
+    <script src="js/model.js"></script>
+    <script src="js/controller.js"></script>
+    <script>
+        var view = new View();
+        var model = new Model( view );
+        var controller = new Controller( model );
+
+        model.init();
+        controller.init();
+    </script>
+</body>
+</html>

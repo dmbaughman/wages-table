@@ -9,13 +9,15 @@
 </head>
 <body>
     <h1>Demo table</h1>
-    <button data-filter-min="0.5">Filter by minimum</button>
-    <button data-reset>Reset</button>
     <div id="js-wages-table-placeholder"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>
 
     <script id="js-tmpl-table-rows" type="text/x-handlebars-template">
+        <button data-filter-min="0.5">Filter by minimum</button>
+        <button data-filter-higher-wage="female">Higher female wages</button>
+        <button data-filter-higher-wage="male">Higher male wages</button>
+        <button data-reset>Reset</button>
         <table class="table table-striped">
             <thead>
                 <tr>

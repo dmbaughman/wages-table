@@ -15,7 +15,7 @@ var Controller = function( model ) {
         });
     }
 
-    function bindFilter() {
+    function bindFilterMin() {
         $( 'body' ).on( 'click', '[data-filter-min]', function( ev ) {
             var $this = $( this );
             var min = $this.data( 'filter-min' );
@@ -25,6 +25,17 @@ var Controller = function( model ) {
         });
     }
 
+
+
+    function bindFilterHigherWage() {
+        $( 'body' ).on( 'click', '[data-filter-higher-wage]', function( ev ) {
+            var $this = $( this );
+            var gender = $this.data( 'filter-higher-wage' );
+            
+            ev.preventDefault();
+            model.filterHigherWage( gender );
+        });
+    }
 
     function bindResetFilter() {
         $( 'body' ).on( 'click', '[data-reset]', function( ev ) {
@@ -37,7 +48,8 @@ var Controller = function( model ) {
 
     self.init = function() {
         bindSort();
-        bindFilter();
+        bindFilterMin();
+        bindFilterHigherWage();
         bindResetFilter();
     };
 

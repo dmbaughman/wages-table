@@ -65,12 +65,27 @@ Model.prototype.sort = function( prop ) {
 };
 
 Model.prototype.filterByMinimum = function( min ) {
-    var filtered = this.original.rows.filter( function( obj ) {
+    this.filtered.rows = this.original.rows.filter( function( obj ) {
         return obj.female_avg_hrly_rate >= min &&
                 obj.male_avg_hrly_rate >= min;
     });
 
-    this.filtered.rows = filtered;
+    this.current = this.filtered;
+    this.refreshView();
+};
+
+Model.prototype.filterHigherWage = function( gender ) {
+
+    this.filtered.rows = this.original.rows.filter( function( obj ) {
+        if ( obj.female_avg_hrly_rate !== null && obj.male_avg_hrly_rate !== null ) {
+            if ( gender === 'female' ) {
+                return obj.female_avg_hrly_rate > obj.male_avg_hrly_rate;
+            } else {
+                return obj.female_avg_hrly_rate < obj.male_avg_hrly_rate;
+            }
+        }
+    });
+
     this.current = this.filtered;
     this.refreshView();
 };

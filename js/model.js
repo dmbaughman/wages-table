@@ -116,8 +116,9 @@ Model.prototype.setPagination = function() {
 
 Model.prototype.setResults = function() {
     var pageResults = [];
+    var count = this.perPage + this.offset;
     // @FIXME: Blank results on last page of set
-    for (var i = this.offset; i < this.perPage + this.offset; i++) {
+    for (var i = this.offset; i < count; i++) {
         pageResults.push( this.current.rows[ i ] );
     }
     

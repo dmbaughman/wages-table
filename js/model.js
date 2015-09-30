@@ -7,7 +7,11 @@ var Model = function( view ) {
 
     self.original = {};
     self.filtered = {};
+    self.results = {};
+
     self.current = null;
+    self.offset = 0;
+    self.perPage = 25;
 
     function formatData( rawData ) {
         var result = [];
@@ -25,8 +29,10 @@ var Model = function( view ) {
         return result;
     }
 
-    self.refreshView = function() {
-        view.render( self.current );
+    self.updateView = function() {
+        self.setResults( self.offset, self.perPage );
+        self.setPagination();
+        view.render( self.results );
     };
 
     function getData() {
@@ -34,10 +40,9 @@ var Model = function( view ) {
     
         $.ajax( ENDPOINT )
             .done( function( data ) {
-                
                 self.original.rows = formatData( data );
                 self.current = self.original;
-                self.refreshView();
+                self.updateView();
             } )
             .fail( function( error ) {
                 console.error( 'Failed to fetch data: ' + error );
@@ -61,7 +66,7 @@ Model.prototype.sort = function( prop ) {
         }
     });
 
-    view.render( this.current );
+    this.updateView();
 };
 
 Model.prototype.filterByMinimum = function( min ) {
@@ -71,7 +76,7 @@ Model.prototype.filterByMinimum = function( min ) {
     });
 
     this.current = this.filtered;
-    this.refreshView();
+    this.updateView();
 };
 
 Model.prototype.filterHigherWage = function( gender ) {
@@ -87,10 +92,35 @@ Model.prototype.filterHigherWage = function( gender ) {
     });
 
     this.current = this.filtered;
-    this.refreshView();
+    this.updateView();
 };
 
 Model.prototype.resetFilter = function() {
     this.current = this.original;
-    this.refreshView();
+    this.updateView();
 };
+
+
+Model.prototype.setPagination = function() {
+    var pages = Math.ceil( this.current.rows.length / this.perPage );
+    this.results.page = Math.floor( this.offset / this.perPage ) + 1;
+    this.results.pagination = [];
+    for( var i = 0; i < pages; i++) {
+        this.results.pagination.push({
+            page: i + 1,
+            offset: i * this.perPage
+        });
+    }
+};
+
+
+Model.prototype.setResults = function() {
+    var pageResults = [];
+    // @FIXME: Blank results on last page of set
+    for (var i = this.offset; i < this.perPage + this.offset; i++) {
+        pageResults.push( this.current.rows[ i ] );
+    }
+    
+    this.results.rows = pageResults;
+};
+

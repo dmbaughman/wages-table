@@ -46,11 +46,23 @@ var Controller = function( model ) {
         });
     }
 
+    function bindPagination() {
+    $( 'body' ).on( 'click', '[data-offset]', function( ev ) {
+            var $this = $( this );
+            var offset = $this.data( 'offset' );
+
+            ev.preventDefault();
+            model.offset = offset;
+            model.updateView();
+        });
+    }
+
     self.init = function() {
         bindSort();
         bindFilterMin();
         bindFilterHigherWage();
         bindResetFilter();
+        bindPagination();
     };
 
 };

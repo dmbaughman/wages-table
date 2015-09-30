@@ -18,6 +18,9 @@
         <button data-filter-higher-wage="female">Higher female wages</button>
         <button data-filter-higher-wage="male">Higher male wages</button>
         <button data-reset>Reset</button>
+        <p>Rows: {{ rows.length }}</p>
+        <p>Pages: {{ pages }}</p>
+        <p>Page: {{ page }}</p>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -41,7 +44,14 @@
                 </tr>
                 {{/each}}
             </tbody>
-        </table>        
+        </table>
+        <ol>
+        {{#each pagination}}
+            <li>
+                <a href="#" data-offset={{ offset }}>{{ page }}</a>
+            </li>
+        {{/each}}
+        </ol>
     </script>
 
     <script src="js/view.js"></script>

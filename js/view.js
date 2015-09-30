@@ -5,7 +5,7 @@ var View = function() {
 
     console.info( 'hello from View' );
 
-    self.render = function( data ) {
+    self.render = function( data, pages ) {
 
         var $wagesTable = $( '#js-wages-table-placeholder' );
 
